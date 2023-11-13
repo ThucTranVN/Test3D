@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovementTest : MonoBehaviour
 {
     [SerializeField]
+    private Animator playerAnim;
+    [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float turnSpeed;
@@ -26,6 +28,7 @@ public class PlayerMovementTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerAnim = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
     }
@@ -40,8 +43,11 @@ public class PlayerMovementTest : MonoBehaviour
 
         print($"Vector Magnitude before normalize: {movementDirection.magnitude}");
 
-        float magnitude = movementDirection.magnitude;
-        magnitude = Mathf.Clamp01(magnitude);
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+
+        playerAnim.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime);
+
+        float speed = inputMagnitude * moveSpeed;
 
         movementDirection.Normalize();
 
@@ -80,16 +86,27 @@ public class PlayerMovementTest : MonoBehaviour
             characterController.stepOffset = 0;
         }
 
-        Vector3 velocity = moveSpeed * magnitude * movementDirection;
-        velocity.y = yForce;
-
-        characterController.Move(velocity * Time.deltaTime);
+       
 
         if(movementDirection != Vector3.zero)
         {
+            playerAnim.SetBool("IsMoving", true);
+
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
         }
+        else
+        {
+            playerAnim.SetBool("IsMoving", false);
+        }
+    }
+
+    private void OnAnimatorMove()
+    {
+        Vector3 velocity = playerAnim.deltaPosition;
+        velocity.y = yForce * Time.deltaTime;
+
+        characterController.Move(velocity);
     }
 }
