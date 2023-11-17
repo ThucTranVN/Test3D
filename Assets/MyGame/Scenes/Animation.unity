@@ -220,6 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 0}
   moveSpeed: 3
+  jumpSpeed: 0
+  gravityMultiplier: 0
   turnSpeed: 720
   jumpForce: 5
   jumpButtonGracePeriod: 0.2
@@ -844,8 +846,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 0}
   moveSpeed: 3
+  jumpSpeed: 5
+  gravityMultiplier: 1.5
   turnSpeed: 720
-  jumpForce: 5
+  jumpForce: 3
   jumpButtonGracePeriod: 0.2
 --- !u!4 &1418709526 stripped
 Transform:

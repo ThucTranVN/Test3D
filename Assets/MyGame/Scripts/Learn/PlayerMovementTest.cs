@@ -8,10 +8,19 @@ public class PlayerMovementTest : MonoBehaviour
     private Animator playerAnim;
     [SerializeField]
     private float moveSpeed;
+
+    [SerializeField]
+    private float jumpSpeed;
+
+    [SerializeField]
+    private float gravityMultiplier;
+
     [SerializeField]
     private float turnSpeed;
+
     [SerializeField]
     private float jumpForce;
+
     [SerializeField]
     private float jumpButtonGracePeriod;
 
@@ -21,6 +30,8 @@ public class PlayerMovementTest : MonoBehaviour
     private float originalStepOffset;
     private float? lastGroundedTime;
     private float? jumpButtonPressTime;
+    private bool isJumping;
+    private bool isGrounded;
 
 
     private CharacterController characterController;
@@ -47,7 +58,7 @@ public class PlayerMovementTest : MonoBehaviour
 
         playerAnim.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime);
 
-        float speed = inputMagnitude * moveSpeed;
+        //float speed = inputMagnitude * moveSpeed;
 
         movementDirection.Normalize();
 
@@ -55,7 +66,14 @@ public class PlayerMovementTest : MonoBehaviour
 
         //transform.Translate(magnitude * moveSpeed * Time.deltaTime * movementDirection, Space.World);
 
-        yForce += Physics.gravity.y * Time.deltaTime;
+        float gravity = Physics.gravity.y * gravityMultiplier;
+
+        if(isJumping && yForce > 0 && Input.GetButton("Jump") == false)
+        {
+            gravity *= 2;
+        }
+
+        yForce += gravity * Time.deltaTime;
 
 
         if (characterController.isGrounded)
@@ -74,9 +92,21 @@ public class PlayerMovementTest : MonoBehaviour
             yForce = -0.5f;
             characterController.stepOffset = originalStepOffset;
 
+            playerAnim.SetBool("IsGrounded", true);
+            isGrounded = true;
+
+            playerAnim.SetBool("IsJumping", false);
+            isJumping = false;
+
+            playerAnim.SetBool("IsFalling", false);
+
             if (Time.time - jumpButtonPressTime <= jumpButtonGracePeriod)
             {
-                yForce = jumpForce;
+                yForce = Mathf.Sqrt(jumpSpeed * -3.0f * gravity);
+
+                playerAnim.SetBool("IsJumping", true);
+                isJumping = true;
+
                 jumpButtonPressTime = null;
                 lastGroundedTime = null;
             }
@@ -84,6 +114,14 @@ public class PlayerMovementTest : MonoBehaviour
         else
         {
             characterController.stepOffset = 0;
+
+            playerAnim.SetBool("IsGrounded", false);
+            isGrounded = false;
+
+            if((isJumping && yForce < 0) || yForce < -2)
+            {
+                playerAnim.SetBool("IsFalling", true);
+            }
         }
 
        
@@ -100,13 +138,24 @@ public class PlayerMovementTest : MonoBehaviour
         {
             playerAnim.SetBool("IsMoving", false);
         }
+
+        if (!isGrounded)
+        {
+            Vector3 velocity = inputMagnitude * jumpSpeed * movementDirection;
+            velocity.y = yForce;
+
+            characterController.Move(velocity * Time.deltaTime);
+        }
     }
 
     private void OnAnimatorMove()
     {
-        Vector3 velocity = playerAnim.deltaPosition;
-        velocity.y = yForce * Time.deltaTime;
+        if (isGrounded)
+        {
+            Vector3 velocity = playerAnim.deltaPosition;
+            velocity.y = yForce * Time.deltaTime;
 
-        characterController.Move(velocity);
+            characterController.Move(velocity * moveSpeed);
+        }
     }
 }
