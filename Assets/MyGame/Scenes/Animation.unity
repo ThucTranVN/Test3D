@@ -849,7 +849,7 @@ MonoBehaviour:
   jumpSpeed: 5
   gravityMultiplier: 1.5
   turnSpeed: 720
-  jumpForce: 3
+  jumpForce: 5
   jumpButtonGracePeriod: 0.2
 --- !u!4 &1418709526 stripped
 Transform:
