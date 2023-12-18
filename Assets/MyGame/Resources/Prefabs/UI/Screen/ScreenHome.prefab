@@ -12205,9 +12205,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1153883758818876276}
         m_TargetAssemblyTypeName: ScreenHome, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: OnClickStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

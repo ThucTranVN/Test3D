@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1435158738934502335}
+  - component: {fileID: 6226187852848431882}
   m_Layer: 0
   m_Name: NotifyLoadingGame
   m_TagString: Untagged
@@ -37,6 +38,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1440, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6226187852848431882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435158738934502334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f58c90820ee4303bbeabe769bd109d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingPercentText: {fileID: 4294843393239315877}
+  loadingSlider: {fileID: 4294843392666835396}
 --- !u!1 &4294843392666835398
 GameObject:
   m_ObjectHideFlags: 0

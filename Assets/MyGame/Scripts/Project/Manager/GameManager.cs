@@ -19,7 +19,6 @@ public class GameManager : BaseManager<GameManager>
                 scr.DoAnimationLoadingProgress(notifyLoadingTime,
                     OnComplete: () =>
                     {
-                        Debug.Log("NotifyLoading Complete");
                         scr.Hide();
                         UIManager.Instance.ShowScreen<ScreenHome>();
                     });
