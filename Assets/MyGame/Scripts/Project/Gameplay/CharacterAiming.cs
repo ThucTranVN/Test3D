@@ -37,6 +37,13 @@ public class CharacterAiming : MonoBehaviour
             raycastWeapon.StartFiring();
         }
 
+        if (raycastWeapon.isFiring)
+        {
+            raycastWeapon.UpdateFiring(Time.deltaTime);
+        }
+
+        raycastWeapon.UpdateBullets(Time.deltaTime);
+
         if (Input.GetButtonUp("Fire1"))
         {
             raycastWeapon.StopFiring();
