@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public Transform weaponParent;
+    public enum WeaponSlot
+    {
+        Primary = 0,
+        Secondary = 1
+    }
+
+    public Transform[] weaponSlots;
     public Transform crossHairTarget;
     public Animator rigController;
-    private RaycastWeapon weapon;
+
+    private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
+    private int activeWeaponIndex;
 
     void Start()
     {
@@ -21,6 +29,7 @@ public class ActiveWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var weapon = GetWeapon(activeWeaponIndex);
         if (weapon != null)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -48,16 +57,26 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
-    public void Equip(RaycastWeapon newWeapon)
+    private RaycastWeapon GetWeapon(int index)
     {
-        if (weapon)
+        if(index < 0 || index > equippedWeapons.Length)
         {
-            Destroy(weapon.gameObject);
+            return null;
         }
 
+        return equippedWeapons[index];
+    }
+
+    public void Equip(RaycastWeapon newWeapon)
+    {
+        int weaponSlotIndex = (int)newWeapon.weaponSlot;
+        var weapon = GetWeapon(weaponSlotIndex);
         weapon = newWeapon;
         weapon.raycastDestination = crossHairTarget;
-        weapon.transform.SetParent(weaponParent, false);
+        weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         rigController.Play("equip_" + weapon.weaponName);
+
+        equippedWeapons[weaponSlotIndex] = weapon;
+        activeWeaponIndex = weaponSlotIndex;
     }
 }
