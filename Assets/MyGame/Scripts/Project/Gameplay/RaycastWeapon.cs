@@ -104,6 +104,12 @@ public class RaycastWeapon : MonoBehaviour
 
             bullet.tracer.transform.position = hitInfo.point;
             bullet.time = maxLifeTime;
+
+            var rigidbody = hitInfo.collider.GetComponent<Rigidbody>();
+            if (rigidbody)
+            {
+                rigidbody.AddForceAtPosition(ray.direction * 2, hitInfo.point, ForceMode.Impulse);
+            }
         }
         else
         {
