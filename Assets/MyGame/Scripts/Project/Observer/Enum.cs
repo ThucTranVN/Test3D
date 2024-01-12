@@ -14,3 +14,9 @@ public enum UIType
     NOTIFY,
     OVERLAP
 }
+
+public enum WeaponSlot
+{
+    Primary = 0,
+    Secondary = 1
+}

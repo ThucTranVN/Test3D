@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public enum WeaponSlot
-    {
-        Primary = 0,
-        Secondary = 1
-    }
-
+    public CinemachineFreeLook playerCamera;
     public Transform[] weaponSlots;
     public Transform crossHairTarget;
     public Animator rigController;
@@ -87,6 +83,8 @@ public class ActiveWeapon : MonoBehaviour
         }
         weapon = newWeapon;
         weapon.raycastDestination = crossHairTarget;
+        weapon.weaponRecoil.playerCamera = playerCamera;
+        weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         rigController.Play("equip_" + weapon.weaponName);
 
