@@ -21,6 +21,7 @@ public class RaycastWeapon : MonoBehaviour
     private float accumulatedTime;
     private float maxLifeTime = 3f;
     public WeaponRecoil weaponRecoil;
+    public GameObject magazine;
 
     private void Awake()
     {
