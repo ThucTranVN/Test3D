@@ -316,6 +316,9 @@ MonoBehaviour:
   bulletDrop: 300
   weaponRecoil: {fileID: 0}
   magazine: {fileID: 7443826774061761966}
+  ammoCount: 30
+  totalAmmo: 30
+  magazineSize: 2
 --- !u!114 &3436674634518139640
 MonoBehaviour:
   m_ObjectHideFlags: 0

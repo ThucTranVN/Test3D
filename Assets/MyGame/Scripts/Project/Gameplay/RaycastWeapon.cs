@@ -22,6 +22,9 @@ public class RaycastWeapon : MonoBehaviour
     private float maxLifeTime = 3f;
     public WeaponRecoil weaponRecoil;
     public GameObject magazine;
+    public int ammoCount;
+    public int totalAmmo;
+    public int magazineSize;
 
     private void Awake()
     {
@@ -35,6 +38,25 @@ public class RaycastWeapon : MonoBehaviour
         return (bullet.initialPosition) //p
             + (bullet.initialVelocity * bullet.time) //v*t 
             + (0.5f * bullet.time * bullet.time * gravity); // 0.5*g*t*t
+    }
+
+    public bool CanReload()
+    {
+        return ammoCount == 0 && magazineSize > 0;
+    }
+
+    public bool EmptyAmmo()
+    {
+        return ammoCount == 0 && magazineSize <= 0;
+    }
+
+    public void RefillAmmo()
+    {
+        if(magazineSize > 0)
+        {
+            magazineSize--;
+            ammoCount = totalAmmo;
+        }
     }
 
     public void StartFiring()
@@ -119,6 +141,15 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet()
     {
+        print($"Current Ammo: {ammoCount} - Current MagazineSize: {magazineSize}");
+
+        if(ammoCount <= 0)
+        {
+            return;
+        }
+
+        ammoCount--;
+
         PlayEffect();
 
         Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;

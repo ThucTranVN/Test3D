@@ -9,13 +9,16 @@ public class ActiveWeapon : MonoBehaviour
     public Transform[] weaponSlots;
     public Transform crossHairTarget;
     public Animator rigController;
+    public ReloadWeapon reloadWeapon;
 
     private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
     private int activeWeaponIndex;
     private bool isHolsterd = false;
+    public bool canFire;
 
     void Start()
     {
+        reloadWeapon = GetComponent<ReloadWeapon>();
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
         if (existingWeapon)
         {
@@ -27,9 +30,12 @@ public class ActiveWeapon : MonoBehaviour
     void Update()
     {
         var weapon = GetWeapon(activeWeaponIndex);
-        if (weapon != null && !isHolsterd)
+
+        canFire = !isHolsterd && !reloadWeapon.isReloading;
+
+        if (weapon != null)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && canFire && !weapon.isFiring)
             {
                 weapon.StartFiring();
             }
@@ -41,7 +47,7 @@ public class ActiveWeapon : MonoBehaviour
 
             weapon.UpdateBullets(Time.deltaTime);
 
-            if (Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp("Fire1") || !canFire)
             {
                 weapon.StopFiring();
             }
@@ -61,6 +67,11 @@ public class ActiveWeapon : MonoBehaviour
         {
             SetActiveWeapon(WeaponSlot.Secondary);
         }
+    }
+
+    public RaycastWeapon GetActiveWeapon()
+    {
+        return GetWeapon(activeWeaponIndex);
     }
 
     private RaycastWeapon GetWeapon(int index)
