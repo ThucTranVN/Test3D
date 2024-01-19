@@ -39,11 +39,8 @@ public class ReloadWeapon : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R) || weapon.CanReload())
             {
-                if (weapon.CanReload())
-                {
-                    isReloading = true;
-                    rigController.SetTrigger("reload_weapon");
-                } 
+                isReloading = true;
+                rigController.SetTrigger("reload_weapon");
             }
         }
     }
