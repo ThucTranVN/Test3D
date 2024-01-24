@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterLocomotion : MonoBehaviour
 {
+    public Animator rigController;
     public float jumpHeight;
     public float gravity;
     public float stepDown;
@@ -15,10 +16,14 @@ public class CharacterLocomotion : MonoBehaviour
     private Animator animator;
     private Vector2 userInput;
     private CharacterController playerController;
+    private ActiveWeapon activeWeapon;
+    private ReloadWeapon reloadWeapon;
 
     private Vector3 rootMotion;
     private Vector3 velocity;
     private bool isJumping;
+
+    private int isSprintingParam = Animator.StringToHash("IsSprinting");
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +31,8 @@ public class CharacterLocomotion : MonoBehaviour
         // Get references to components when the script starts
         animator = GetComponent<Animator>();
         playerController = GetComponent<CharacterController>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+        reloadWeapon = GetComponent<ReloadWeapon>();
     }
 
     // Update is called once per frame
@@ -34,6 +41,7 @@ public class CharacterLocomotion : MonoBehaviour
         // Get user input and update animation every frame
         GetInput();
         UpdateAnimation();
+
     }
 
     private void GetInput()
@@ -47,6 +55,24 @@ public class CharacterLocomotion : MonoBehaviour
         {
             Jump();
         }
+
+        UpdateIsSprinting();
+    }
+
+    private bool IsSprinting()
+    {
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isFiring = activeWeapon.IsFiring();
+        bool isReloading = reloadWeapon.isReloading;
+        bool isChangingWeapon = activeWeapon.isChangingWeapon;
+        return isSprinting && !isFiring && !isReloading && !isChangingWeapon;
+    }
+
+    private void UpdateIsSprinting()
+    {
+        bool isSprinting = IsSprinting();
+        animator.SetBool(isSprintingParam, isSprinting);
+        rigController.SetBool(isSprintingParam, isSprinting);
     }
 
     private void UpdateAnimation()
@@ -80,7 +106,7 @@ public class CharacterLocomotion : MonoBehaviour
         // Update character position on the ground
         Vector3 stepForwardAmount = rootMotion * groundSpeed;
         Vector3 stepDownAmount = Vector3.down * stepDown;
-
+        Debug.Log(stepForwardAmount);
         // Move the character controller on the ground
         playerController.Move(stepForwardAmount + stepDownAmount);
         rootMotion = Vector3.zero;
