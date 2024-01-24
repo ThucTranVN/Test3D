@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public CinemachineFreeLook playerCamera;
+    public CharacterAiming chacracterAiming;
     public Transform[] weaponSlots;
     public Transform crossHairTarget;
     public Animator rigController;
@@ -105,7 +105,7 @@ public class ActiveWeapon : MonoBehaviour
         }
         weapon = newWeapon;
         weapon.raycastDestination = crossHairTarget;
-        weapon.weaponRecoil.playerCamera = playerCamera;
+        weapon.weaponRecoil.characterAiming = chacracterAiming;
         weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         rigController.Play("equip_" + weapon.weaponName);
