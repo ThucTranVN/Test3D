@@ -25,6 +25,7 @@ public class RaycastWeapon : MonoBehaviour
     public int ammoCount;
     public int totalAmmo;
     public int magazineSize;
+    public float damageAmount = 10f;
 
     private void Awake()
     {
@@ -133,6 +134,12 @@ public class RaycastWeapon : MonoBehaviour
             if (rigidbody)
             {
                 rigidbody.AddForceAtPosition(ray.direction * 2, hitInfo.point, ForceMode.Impulse);
+            }
+
+            var hitBox = hitInfo.collider.GetComponent<HitBox>();
+            if (hitBox)
+            {
+                hitBox.OnRayCastHit(this, ray.direction);
             }
         }
 
