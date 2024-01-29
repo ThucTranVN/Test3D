@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class DebugNavmeshAgent : MonoBehaviour
 {
-    public bool isShowVelocity;
-    public bool isShowDesiredVelocity;
-    public bool isShowPath;
+    public bool isShowVelocity = false;
+    public bool isShowDesiredVelocity = false;
+    public bool isShowPath = false;
     public Color velocityColor;
     public Color desiredVelocityColor;
     public Color pathColor;
