@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class AIAgent : MonoBehaviour
 {
+    public Transform playerTransform;
     public AIStateMachine stateMachine;
     public AIStateID initState;
     public NavMeshAgent navMeshAgent;
@@ -13,10 +14,11 @@ public class AIAgent : MonoBehaviour
     public float maxTime = 1f;
     public float maxDistance = 5f;
     public float dieForce = 10f;
+    public float maxSightDistance = 10f;
 
-    // Start is called before the first frame update
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         ragdoll = GetComponent<Ragdoll>();
         UIHealthBar = GetComponentInChildren<UIHealthBar>();
@@ -24,10 +26,10 @@ public class AIAgent : MonoBehaviour
         stateMachine = new AIStateMachine(this);
         stateMachine.RegisterState(new AIChasePlayerState());
         stateMachine.RegisterState(new AIDeathState());
+        stateMachine.RegisterState(new AIIdleState());
         stateMachine.ChangeState(initState);
     }
 
-    // Update is called once per frame
     void Update()
     {
         stateMachine.Update();
