@@ -8,11 +8,22 @@ public class WeaponPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Player
         ActiveWeapon activeWeapon = other.gameObject.GetComponent<ActiveWeapon>();
         if(activeWeapon != null)
         {
             RaycastWeapon newWeapon = Instantiate(weaponPrefab);
             activeWeapon.Equip(newWeapon);
+            Destroy(gameObject);
+        }
+
+        //AI
+        AIWeapons aiWeapons = other.gameObject.GetComponent<AIWeapons>();
+        if (aiWeapons != null)
+        {
+            RaycastWeapon newWeapon = Instantiate(weaponPrefab);
+            aiWeapons.EquipWeapon(newWeapon);
+            Destroy(gameObject);
         }
     }
 }

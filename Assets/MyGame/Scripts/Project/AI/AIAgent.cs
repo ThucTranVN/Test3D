@@ -11,6 +11,7 @@ public class AIAgent : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public Ragdoll ragdoll;
     public UIHealthBar UIHealthBar;
+    public AIWeapons weapons;
     public float maxTime = 1f;
     public float maxDistance = 5f;
     public float dieForce = 10f;
@@ -22,11 +23,13 @@ public class AIAgent : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         ragdoll = GetComponent<Ragdoll>();
         UIHealthBar = GetComponentInChildren<UIHealthBar>();
+        weapons = GetComponent<AIWeapons>();
         navMeshAgent.stoppingDistance = maxDistance;
         stateMachine = new AIStateMachine(this);
         stateMachine.RegisterState(new AIChasePlayerState());
         stateMachine.RegisterState(new AIDeathState());
         stateMachine.RegisterState(new AIIdleState());
+        stateMachine.RegisterState(new AIFIndWeaponState());
         stateMachine.ChangeState(initState);
     }
 

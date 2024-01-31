@@ -106,7 +106,6 @@ public class CharacterLocomotion : MonoBehaviour
         // Update character position on the ground
         Vector3 stepForwardAmount = rootMotion * groundSpeed;
         Vector3 stepDownAmount = Vector3.down * stepDown;
-        Debug.Log(stepForwardAmount);
         // Move the character controller on the ground
         playerController.Move(stepForwardAmount + stepDownAmount);
         rootMotion = Vector3.zero;
