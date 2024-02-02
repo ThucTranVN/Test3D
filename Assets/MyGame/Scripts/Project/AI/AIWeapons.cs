@@ -7,11 +7,14 @@ public class AIWeapons : MonoBehaviour
     private Animator animator;
     private RaycastWeapon currentWeapon;
     private MeshSocketController meshSocketController;
+    private AIWeaponIK weaponIK;
+    private Transform currentTarget;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         meshSocketController = GetComponent<MeshSocketController>();
+        weaponIK = GetComponent<AIWeaponIK>();
     }
 
     public void EquipWeapon(RaycastWeapon weapon)
@@ -22,7 +25,18 @@ public class AIWeapons : MonoBehaviour
 
     public void ActivateWeapon()
     {
+        StartCoroutine(EquipWeapon());
+    }
+
+    private IEnumerator EquipWeapon()
+    {
         animator.SetBool("Equip", true);
+        yield return new WaitForSeconds(0.5f);
+        while(animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+        weaponIK.SetAimTransform(currentWeapon.raycastOrigin);
     }
 
     public bool HasWeapon()
@@ -47,5 +61,11 @@ public class AIWeapons : MonoBehaviour
             currentWeapon.gameObject.AddComponent<Rigidbody>();
             currentWeapon = null;
         }
+    }
+
+    public void SetTarget(Transform target)
+    {
+        weaponIK.SetTargetTransform(target);
+        currentTarget = target;
     }
 }

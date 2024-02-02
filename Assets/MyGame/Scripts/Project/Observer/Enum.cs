@@ -27,7 +27,8 @@ public enum AIStateID
     ChasePlayer,
     Death,
     Idle,
-    FindWeapon
+    FindWeapon,
+    AttackPlayer
 }
 
 public enum SocketID

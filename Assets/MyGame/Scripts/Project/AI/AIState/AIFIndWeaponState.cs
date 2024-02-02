@@ -29,7 +29,7 @@ public class AIFIndWeaponState : AIState
     {
         if (agent.weapons.HasWeapon())
         {
-            agent.weapons.ActivateWeapon();
+            agent.stateMachine.ChangeState(AIStateID.AttackPlayer);
         }
     }
 

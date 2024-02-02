@@ -134,7 +134,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Weapon Layer
     m_StateMachine: {fileID: -3235180449306797682}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 6d11f1251f5614553926257b04e35c40, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
