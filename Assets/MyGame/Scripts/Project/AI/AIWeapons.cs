@@ -29,4 +29,23 @@ public class AIWeapons : MonoBehaviour
     {
         return currentWeapon != null;
     }
+
+    public void OnAnimationEvent(string eventName)
+    {
+        if (eventName.Equals("equipWeapon"))
+        {
+            meshSocketController.Attach(currentWeapon.transform, SocketID.RightHand);
+        }
+    }
+
+    public void DropWeapon()
+    {
+        if (HasWeapon())
+        {
+            currentWeapon.transform.SetParent(null);
+            currentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
+            currentWeapon.gameObject.AddComponent<Rigidbody>();
+            currentWeapon = null;
+        }
+    }
 }
