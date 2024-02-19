@@ -41,24 +41,27 @@ public class WeaponRecoil : MonoBehaviour
 
     public void GenerateRecoil(string weaponName)
     {
-        time = duration;
-
-        cameraShake.GenerateImpulse(Camera.main.transform.forward);
-
-        horizontalRecoil = recoilPattern[recoilIndex].x;
-        verticalRecoil = recoilPattern[recoilIndex].y;
-
-        recoilIndex = NextIndex(recoilIndex);
-        rigController.Play("weapon_recoil_" + weaponName, 1, 0.0f);
+        if (rigController)
+        {
+            time = duration;
+            cameraShake.GenerateImpulse(Camera.main.transform.forward);
+            horizontalRecoil = recoilPattern[recoilIndex].x;
+            verticalRecoil = recoilPattern[recoilIndex].y;
+            recoilIndex = NextIndex(recoilIndex);
+            rigController.Play("weapon_recoil_" + weaponName, 1, 0.0f);
+        }
     }
 
     private void Update()
     {
         if(time > 0)
         {
-            characterAiming.yAxis.Value -= (((verticalRecoil/10) * Time.deltaTime) / duration) * recoilModifier;
-            characterAiming.xAxis.Value -= (((horizontalRecoil/10) * Time.deltaTime) / duration) * recoilModifier;
-            time -= Time.deltaTime;
+            if (characterAiming)
+            {
+                characterAiming.yAxis.Value -= (((verticalRecoil / 10) * Time.deltaTime) / duration) * recoilModifier;
+                characterAiming.xAxis.Value -= (((horizontalRecoil / 10) * Time.deltaTime) / duration) * recoilModifier;
+                time -= Time.deltaTime;
+            }
         }
     }
 }

@@ -7,7 +7,6 @@ public class RaycastWeapon : MonoBehaviour
     public WeaponSlot weaponSlot;
     public string weaponName;
     public Transform raycastOrigin;
-    public Transform raycastDestination;
     public ParticleSystem[] muzzleFlash;
     public ParticleSystem hitEffect;
     public TrailRenderer tracerEffect;
@@ -63,23 +62,37 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         isFiring = true;
-        accumulatedTime = 0f;
-        FireBullet();
+
+        if(accumulatedTime > 0f)
+        {
+            accumulatedTime = 0f;
+        }
+
         weaponRecoil.Reset();
     }
 
-    public void UpdateFiring(float deltaTime)
+    public void UpdateWeapon(float deltaTime, Vector3 target)
+    {
+        if (isFiring)
+        {
+            UpdateFiring(deltaTime, target);           
+        }
+
+        UpdateBullets(deltaTime);
+    }
+
+    private void UpdateFiring(float deltaTime, Vector3 target)
     {
         accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
-        while(accumulatedTime >= 0f)
+        while (accumulatedTime >= 0f)
         {
-            FireBullet();
+            FireBullet(target);
             accumulatedTime -= fireInterval;
         }
     }
 
-    public void UpdateBullets(float deltaTime)
+    private void UpdateBullets(float deltaTime)
     {
         SimulateBullets(deltaTime);
         DestroyBullets();
@@ -146,10 +159,8 @@ public class RaycastWeapon : MonoBehaviour
         bullet.tracer.transform.position = end;
     }
 
-    private void FireBullet()
+    private void FireBullet(Vector3 target)
     {
-        print($"Current Ammo: {ammoCount} - Current MagazineSize: {magazineSize}");
-
         if(ammoCount <= 0)
         {
             return;
@@ -159,7 +170,7 @@ public class RaycastWeapon : MonoBehaviour
 
         PlayEffect();
 
-        Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;
+        Vector3 velocity = (target - raycastOrigin.position).normalized * bulletSpeed;
 
         if (ObjectPool.HasInstance)
         {
@@ -167,7 +178,10 @@ public class RaycastWeapon : MonoBehaviour
             bullet.Active(raycastOrigin.position, velocity);
         }
 
-        weaponRecoil.GenerateRecoil(weaponName);
+        if (weaponRecoil)
+        {
+            weaponRecoil.GenerateRecoil(weaponName);
+        }
     }
 
     public void StopFiring()

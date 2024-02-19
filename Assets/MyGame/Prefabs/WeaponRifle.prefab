@@ -305,7 +305,6 @@ MonoBehaviour:
   weaponSlot: 0
   weaponName: rifle
   raycastOrigin: {fileID: 557964058050978588}
-  raycastDestination: {fileID: 0}
   muzzleFlash:
   - {fileID: 7996225433059086022}
   - {fileID: 7996507810816380512}
@@ -419,8 +418,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.15724297, y: 0.27069014, z: 1.0946691}
-  m_Center: {x: 0.013380192, y: -0.12573951, z: 0.4869318}
+  m_Size: {x: 0.13153869, y: 0.22974, z: 0.8706252}
+  m_Center: {x: 0.026232332, y: -0.105264425, z: 0.49633315}
 --- !u!1 &557964058050978595
 GameObject:
   m_ObjectHideFlags: 0

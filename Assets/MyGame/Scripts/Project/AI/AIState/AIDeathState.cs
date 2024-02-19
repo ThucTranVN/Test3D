@@ -17,6 +17,7 @@ public class AIDeathState : AIState
 
         agent.UIHealthBar.Deactive();
         agent.weapons.DropWeapon();
+        agent.DisableAll();
     }
 
     public void Exit(AIAgent agent)

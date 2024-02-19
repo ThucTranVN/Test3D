@@ -38,4 +38,16 @@ public class AIAgent : MonoBehaviour
     {
         stateMachine.Update();
     }
+
+    public void DisableAll()
+    {
+        var allComponents = GetComponents<MonoBehaviour>();
+
+        foreach (var comp in allComponents)
+        {
+            comp.enabled = false;
+        }
+
+        navMeshAgent.enabled = false;
+    }
 }

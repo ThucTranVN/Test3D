@@ -43,10 +43,8 @@ public class ActiveWeapon : MonoBehaviour
 
             if (weapon.isFiring && notSprinting)
             {
-                weapon.UpdateFiring(Time.deltaTime);
+                weapon.UpdateWeapon(Time.deltaTime, crossHairTarget.position);
             }
-
-            weapon.UpdateBullets(Time.deltaTime);
 
             if (Input.GetButtonUp("Fire1") || !canFire)
             {
@@ -104,7 +102,6 @@ public class ActiveWeapon : MonoBehaviour
             Destroy(weapon.gameObject);
         }
         weapon = newWeapon;
-        weapon.raycastDestination = crossHairTarget;
         weapon.weaponRecoil.characterAiming = chacracterAiming;
         weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
