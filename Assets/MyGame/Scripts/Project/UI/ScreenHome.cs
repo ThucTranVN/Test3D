@@ -12,6 +12,11 @@ public class ScreenHome : BaseScreen
     public override void Show(object data)
     {
         base.Show(data);
+
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlayBGM(AUDIO.BGM_BGM_3);
+        }
     }
 
     public override void Hide()

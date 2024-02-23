@@ -36,15 +36,6 @@ public class CharacterAiming : MonoBehaviour
         if(weapon != null)
         {
             weapon.weaponRecoil.recoilModifier = isAiming ? 0.3f : 1.0f;
-
-            //if (isAiming)
-            //{
-            //    weapon.weaponRecoil.recoilModifier = 0.3f;
-            //}
-            //else
-            //{
-            //    weapon.weaponRecoil.recoilModifier = 1f;
-            //}
         }
     }
 

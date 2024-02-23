@@ -20,6 +20,8 @@ public class NotifyLoadingGame : BaseNotify
     public override void Show(object data)
     {
         base.Show(data);
+        StopAllCoroutines();
+        StartCoroutine(LoadScene());
     }
 
     public override void Hide()
@@ -46,6 +48,7 @@ public class NotifyLoadingGame : BaseNotify
                 }
                 yield return new WaitForSeconds(1f);
                 asyncOperation.allowSceneActivation = true;
+
                 this.Hide();
             }
             yield return null;

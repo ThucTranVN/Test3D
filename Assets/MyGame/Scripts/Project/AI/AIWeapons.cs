@@ -31,19 +31,23 @@ public class AIWeapons : MonoBehaviour
 
     public void SetFiring(bool enable)
     {
-        if (enable)
+        if (currentWeapon)
         {
-            currentWeapon.StartFiring();
-        }
-        else
-        {
-            currentWeapon.StopFiring();
-        }
+            if (enable)
+            {
+                currentWeapon.StartFiring();
+            }
+            else
+            {
+                currentWeapon.StopFiring();
+            }
+        }   
     }
 
     public void EquipWeapon(RaycastWeapon weapon)
     {
         currentWeapon = weapon;
+        currentWeapon.equipWeaponBy = EquipWeaponBy.AI;
         meshSocketController.Attach(currentWeapon.transform, SocketID.Spine);
     }
 
@@ -73,18 +77,21 @@ public class AIWeapons : MonoBehaviour
 
     private IEnumerator HolsterWeapon()
     {
-        activeWeapon = false;
-        animator.SetBool("Equip", false);
-        yield return new WaitForSeconds(0.5f);
-        while (animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
+        if (animator)
         {
-            if (animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= 0.7f)
+            activeWeapon = false;
+            animator.SetBool("Equip", false);
+            yield return new WaitForSeconds(0.5f);
+            while (animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
             {
-                meshSocketController.Attach(currentWeapon.transform, SocketID.Spine);
+                if (animator.GetCurrentAnimatorStateInfo(1).normalizedTime >= 0.7f)
+                {
+                    meshSocketController.Attach(currentWeapon.transform, SocketID.Spine);
+                }
+                yield return null;
             }
-            yield return null;
-        }
-        weaponIK.SetAimTransform(currentWeapon.raycastOrigin);
+            weaponIK.SetAimTransform(currentWeapon.raycastOrigin);
+        } 
     }
 
     public bool HasWeapon()
@@ -113,7 +120,11 @@ public class AIWeapons : MonoBehaviour
 
     public void SetTarget(Transform target)
     {
-        weaponIK.SetTargetTransform(target);
+        if (weaponIK)
+        {
+            weaponIK.SetTargetTransform(target);
+        }
+
         currentTarget = target;
     }
 }

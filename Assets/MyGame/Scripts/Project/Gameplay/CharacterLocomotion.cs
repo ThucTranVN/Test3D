@@ -54,6 +54,7 @@ public class CharacterLocomotion : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+            OnJump();
         }
 
         UpdateIsSprinting();
@@ -173,6 +174,22 @@ public class CharacterLocomotion : MonoBehaviour
 
         // Apply the push to the other collider
         body.velocity = pushDir * pushPower;
+    }
+
+    public void OnFootStep()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_FOOTSTEP);
+        }
+    }
+
+    public void OnJump()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_JUMP);
+        }
     }
 }
 

@@ -11,4 +11,9 @@ public class CameraManager : BaseManager<CameraManager>
     {
         killCamera.Priority = 20;
     }
+
+    public void ResetKillCam()
+    {
+        killCamera.Priority = 0;
+    }
 }

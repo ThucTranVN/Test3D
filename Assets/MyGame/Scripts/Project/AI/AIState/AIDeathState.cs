@@ -18,6 +18,12 @@ public class AIDeathState : AIState
         agent.UIHealthBar.Deactive();
         agent.weapons.DropWeapon();
         agent.DisableAll();
+
+        if (UIManager.HasInstance)
+        {
+            string message = "Win";
+            UIManager.Instance.ShowPopup<PopupMessage>(data: message);
+        }
     }
 
     public void Exit(AIAgent agent)

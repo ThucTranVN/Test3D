@@ -106,11 +106,16 @@ public class ActiveWeapon : MonoBehaviour
         weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         rigController.Play("equip_" + weapon.weaponName);
-
+        weapon.equipWeaponBy = EquipWeaponBy.Player;
         equippedWeapons[weaponSlotIndex] = weapon;
         activeWeaponIndex = weaponSlotIndex;
 
         SetActiveWeapon(newWeapon.weaponSlot);
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, weapon);
+        }
     }
 
     private void ToggleActiveWeapon()
@@ -178,6 +183,11 @@ public class ActiveWeapon : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
             isHolsterd = false;
+
+            if (ListenerManager.HasInstance)
+            {
+                ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, weapon);
+            }
         }
         isChangingWeapon = false;
     }

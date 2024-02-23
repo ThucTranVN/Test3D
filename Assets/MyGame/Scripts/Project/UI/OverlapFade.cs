@@ -45,6 +45,7 @@ public class OverlapFade : BaseOverlap
         seq.OnComplete(() =>
         {
             onFinish?.Invoke();
+            OnFinish();
         });
     }
 
@@ -55,6 +56,11 @@ public class OverlapFade : BaseOverlap
         if (UIManager.HasInstance)
         {
             UIManager.Instance.ShowScreen<ScreenGame>();
+        }
+
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlayBGM(AUDIO.BGM_BMG_4);
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RaycastWeapon : MonoBehaviour
 {
+    public EquipWeaponBy equipWeaponBy;
     public WeaponSlot weaponSlot;
     public string weaponName;
     public Transform raycastOrigin;
@@ -57,6 +58,11 @@ public class RaycastWeapon : MonoBehaviour
         {
             magazineSize--;
             ammoCount = totalAmmo;
+        }
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, this);
         }
     }
 
@@ -168,6 +174,11 @@ public class RaycastWeapon : MonoBehaviour
         }
 
         ammoCount--;
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, this);
+        }
 
         PlayEffect();
 
