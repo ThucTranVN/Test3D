@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class HitBox : MonoBehaviour
 {
-    public AIHealth AIHealth;
+    public Health Health;
 
     public void OnRayCastHit(RaycastWeapon weapon, Vector3 direction)
     {
-        AIHealth.TakeDamage(weapon.damageAmount, direction);
+        Health.TakeDamage(weapon.damageAmount, direction);
     }
 }

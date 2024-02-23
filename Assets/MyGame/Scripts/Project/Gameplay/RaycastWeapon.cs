@@ -25,6 +25,7 @@ public class RaycastWeapon : MonoBehaviour
     public int totalAmmo;
     public int magazineSize;
     public float damageAmount = 10f;
+    public LayerMask layerMask;
 
     private void Awake()
     {
@@ -133,7 +134,7 @@ public class RaycastWeapon : MonoBehaviour
         ray.origin = start;
         ray.direction = direction;
 
-        if (Physics.Raycast(ray, out hitInfo, distance))
+        if (Physics.Raycast(ray, out hitInfo, distance, layerMask))
         {
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;

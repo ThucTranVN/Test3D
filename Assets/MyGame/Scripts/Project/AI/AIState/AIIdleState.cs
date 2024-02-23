@@ -11,7 +11,8 @@ public class AIIdleState : AIState
 
     public void Enter(AIAgent agent)
     {
-        
+        agent.weapons.DeactivateWeapon();
+        agent.navMeshAgent.ResetPath();
     }
 
     public void Exit(AIAgent agent)
@@ -21,6 +22,8 @@ public class AIIdleState : AIState
 
     public void Update(AIAgent agent)
     {
+        if (agent.playerTransform.GetComponent<Health>().IsDead()) return;
+
         Vector3 playerDirection = agent.playerTransform.position - agent.transform.position;
         if(playerDirection.sqrMagnitude > agent.maxSightDistance * agent.maxSightDistance)
         {

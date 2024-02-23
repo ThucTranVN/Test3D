@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 557964056962634098}
   - component: {fileID: -3151356537875705959}
   - component: {fileID: 2345420663927247295}
+  - component: {fileID: 5894573194086869097}
   m_Layer: 10
   m_Name: WeaponPistol
   m_TagString: Untagged
@@ -68,6 +69,9 @@ MonoBehaviour:
   totalAmmo: 15
   magazineSize: 2
   damageAmount: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2049
 --- !u!114 &-3151356537875705959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +144,19 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!65 &5894573194086869097
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557964056962634096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.06969191, y: 0.18829578, z: 0.32485017}
+  m_Center: {x: 0.0026539415, y: 0.040600598, z: 0.09894411}
 --- !u!1 &557964058050978595
 GameObject:
   m_ObjectHideFlags: 0

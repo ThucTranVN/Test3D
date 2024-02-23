@@ -320,6 +320,9 @@ MonoBehaviour:
   totalAmmo: 30
   magazineSize: 2
   damageAmount: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2049
 --- !u!114 &3436674634518139640
 MonoBehaviour:
   m_ObjectHideFlags: 0
