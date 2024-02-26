@@ -36,4 +36,9 @@ public class DataConfig : ScriptableObject
 
     [Header("UI")]
     public float NotifyLoadingTime = 5f;
+
+    [Header("Game Component")]
+    public float BounceSpeed = 8;
+    public float BounceAmplitude = 0.05f;
+    public float RotationSpeed = 90;
 }

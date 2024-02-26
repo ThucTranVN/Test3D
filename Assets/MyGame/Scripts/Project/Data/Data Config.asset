@@ -30,4 +30,7 @@ MonoBehaviour:
   InAccurary: 0.4
   AngleLimit: 90
   DistanceLimit: 1.5
-  NotifyLoadingTime: 5
+  NotifyLoadingTime: 3
+  BounceSpeed: 8
+  BounceAmplitude: 0.05
+  RotationSpeed: 90
