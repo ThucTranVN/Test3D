@@ -15,10 +15,21 @@ public class WeaponAnimationEvent : MonoBehaviour
     public void OnAnimationEvent(string eventName)
     {
         WeaponAnimEvent.Invoke(eventName);
+    }
 
-        //if (ListenerManager.HasInstance)
-        //{
-        //    ListenerManager.Instance.BroadCast(ListenType.RELOAD_ANIMATION_EVENT, eventName);
-        //}
+    public void AudioOnShootLaser()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_LASER2);
+        }
+    }
+
+    public void AudioOnShootPistol()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_LASER1);
+        }
     }
 }

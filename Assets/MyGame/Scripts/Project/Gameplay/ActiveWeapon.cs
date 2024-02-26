@@ -171,6 +171,10 @@ public class ActiveWeapon : MonoBehaviour
 
     private IEnumerator ActivateWeapon(int index)
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_PISTOLCOCKING);
+        }
         isChangingWeapon = true;
         var weapon = GetWeapon(index);
         if(weapon != null)

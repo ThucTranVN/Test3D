@@ -5,13 +5,13 @@ using UnityEngine;
 public class CharacterLocomotion : MonoBehaviour
 {
     public Animator rigController;
-    public float jumpHeight;
-    public float gravity;
-    public float stepDown;
-    public float airControl;
-    public float jumpDamp;
-    public float groundSpeed;
-    public float pushPower;
+    private float jumpHeight;
+    private float gravity;
+    private float stepDown;
+    private float airControl;
+    private float jumpDamp;
+    private float groundSpeed;
+    private float pushPower;
 
     private Animator animator;
     private Vector2 userInput;
@@ -24,6 +24,20 @@ public class CharacterLocomotion : MonoBehaviour
     private bool isJumping;
 
     private int isSprintingParam = Animator.StringToHash("IsSprinting");
+
+    private void Awake()
+    {
+        if (DataManager.HasInstance)
+        {
+            jumpHeight = DataManager.Instance.DataConfig.JumpHeight;
+            gravity = DataManager.Instance.DataConfig.Gravity;
+            stepDown = DataManager.Instance.DataConfig.StepDown;
+            airControl = DataManager.Instance.DataConfig.AirControl;
+            jumpDamp = DataManager.Instance.DataConfig.JumpDamp;
+            groundSpeed = DataManager.Instance.DataConfig.GroundSpeed;
+            pushPower = DataManager.Instance.DataConfig.PushPower;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +68,6 @@ public class CharacterLocomotion : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
-            OnJump();
         }
 
         UpdateIsSprinting();

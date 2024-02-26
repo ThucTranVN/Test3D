@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AIHealth : Health
 {
-    public float blinkDuration = 0.1f;
-
+    private float blinkDuration;
     private AIAgent agent;
     private SkinnedMeshRenderer meshRenderer;
     private UIHealthBar healthBar;
@@ -15,6 +14,12 @@ public class AIHealth : Health
         agent = GetComponent<AIAgent>();
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         healthBar = GetComponentInChildren<UIHealthBar>();
+        if (DataManager.HasInstance)
+        {
+            blinkDuration = DataManager.Instance.DataConfig.BlinkDuration;
+            maxHealth = DataManager.Instance.DataConfig.AIMaxHealth;
+            currentHealth = maxHealth;
+        }
     }
 
     protected override void OnDamage(Vector3 direction)

@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class AIWeapons : MonoBehaviour
 {
-    public float inAccurary = 0.4f; 
+    private float inAccurary; 
     private Animator animator;
     private RaycastWeapon currentWeapon;
     private MeshSocketController meshSocketController;
     private AIWeaponIK weaponIK;
     private Transform currentTarget;
     private bool activeWeapon = false;
+
+    private void Awake()
+    {
+        if (DataManager.HasInstance)
+        {
+            inAccurary = DataManager.Instance.DataConfig.InAccurary;
+        }
+    }
 
     private void Start()
     {

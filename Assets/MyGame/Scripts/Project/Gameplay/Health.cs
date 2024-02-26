@@ -9,7 +9,6 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
         SetupHitBox();
         OnStart();
     }

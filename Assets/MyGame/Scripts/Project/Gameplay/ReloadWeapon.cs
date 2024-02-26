@@ -15,19 +15,6 @@ public class ReloadWeapon : MonoBehaviour
     void Start()
     {
         animationEvent.WeaponAnimEvent.AddListener(OnAnimationEvent);
-
-        //if (ListenerManager.HasInstance)
-        //{
-        //    ListenerManager.Instance.Register(ListenType.RELOAD_ANIMATION_EVENT, OnReloadAnimationEvent);
-        //}
-    }
-
-    private void OnDestroy()
-    {
-        //if (ListenerManager.HasInstance)
-        //{
-        //    ListenerManager.Instance.Unregister(ListenType.RELOAD_ANIMATION_EVENT, OnReloadAnimationEvent);
-        //}
     }
 
     void Update()
@@ -68,6 +55,10 @@ public class ReloadWeapon : MonoBehaviour
 
     private void DetachMagazine()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_EJECTMAGAZINE);
+        }
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
         magazineHand = Instantiate(weapon.magazine, leftHand, true);
         weapon.magazine.SetActive(false);
@@ -89,6 +80,10 @@ public class ReloadWeapon : MonoBehaviour
 
     private void AttachMagazine()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(AUDIO.SE_INSERTMAGAZINE);
+        }
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
         weapon.magazine.SetActive(true);
         Destroy(magazineHand);
@@ -96,15 +91,4 @@ public class ReloadWeapon : MonoBehaviour
         rigController.ResetTrigger("reload_weapon");
         isReloading = false;
     }
-
-    //void OnReloadAnimationEvent(object value)
-    //{
-    //    if(value != null)
-    //    {
-    //        if(value is string eventName)
-    //        {
-    //            Debug.Log($"Weapon Reload Event By Observer: {eventName}");
-    //        }
-    //    }
-    //}
 }

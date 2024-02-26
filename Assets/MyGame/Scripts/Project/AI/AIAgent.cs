@@ -12,10 +12,21 @@ public class AIAgent : MonoBehaviour
     public Ragdoll ragdoll;
     public UIHealthBar UIHealthBar;
     public AIWeapons weapons;
-    public float maxTime = 1f;
-    public float maxDistance = 5f;
-    public float dieForce = 10f;
-    public float maxSightDistance = 10f;
+    public float maxTime;
+    public float maxDistance;
+    public float dieForce;
+    public float maxSightDistance;
+
+    private void Awake()
+    {
+        if (DataManager.HasInstance)
+        {
+            maxTime = DataManager.Instance.DataConfig.MaxTime;
+            maxDistance = DataManager.Instance.DataConfig.MaxDistance;
+            dieForce = DataManager.Instance.DataConfig.DieForce;
+            maxSightDistance = DataManager.Instance.DataConfig.MaxSightDistance;
+        }
+    }
 
     void Start()
     {

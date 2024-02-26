@@ -20,10 +20,19 @@ public class AIWeaponIK : MonoBehaviour
     public float weight = 1.0f;
     public HumanBone[] humanBones;
     private Transform[] bonesTransform;
-    public float angleLimit = 90f;
-    public float distanceLimit = 1.5f;
 
+    private float angleLimit;
+    private float distanceLimit;
     private Animator animator;
+
+    private void Awake()
+    {
+        if (DataManager.HasInstance)
+        {
+            angleLimit = DataManager.Instance.DataConfig.AngleLimit;
+            distanceLimit = DataManager.Instance.DataConfig.DistanceLimit;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
