@@ -36,7 +36,7 @@ public class ActiveWeapon : MonoBehaviour
 
         if (weapon != null)
         {
-            if (Input.GetButtonDown("Fire1") && canFire && !weapon.isFiring)
+            if (Input.GetButton("Fire1") && canFire && !weapon.isFiring)
             {
                 weapon.StartFiring();
             }

@@ -21,7 +21,7 @@ public class WeaponAnimationEvent : MonoBehaviour
     {
         if (AudioManager.HasInstance)
         {
-            AudioManager.Instance.PlaySE(AUDIO.SE_LASER2);
+            AudioManager.Instance.PlaySE(AUDIO.SE_LASER1);
         }
     }
 
@@ -29,7 +29,7 @@ public class WeaponAnimationEvent : MonoBehaviour
     {
         if (AudioManager.HasInstance)
         {
-            AudioManager.Instance.PlaySE(AUDIO.SE_LASER1);
+            AudioManager.Instance.PlaySE(AUDIO.SE_LASER2);
         }
     }
 }

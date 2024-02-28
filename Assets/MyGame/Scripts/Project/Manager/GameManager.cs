@@ -43,14 +43,17 @@ public class GameManager : BaseManager<GameManager>
         {
             OverlapFade overlapFade = UIManager.Instance.GetExistOverlap<OverlapFade>();
             overlapFade.Show(null);
-            overlapFade.Fade(2f, () =>
-            {
-                overlapFade.Hide();
-                UIManager.Instance.ShowScreen<ScreenHome>();
-                LoadScene("Loading");
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            });
+            overlapFade.Fade(2f,
+                onDuringFade: () =>
+                {
+                    UIManager.Instance.ShowScreen<ScreenHome>();
+                    LoadScene("Loading");         
+                },
+                onFinish: ()=>
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                });
         }
 
         if (CameraManager.HasInstance)

@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Value: 2
   scatter:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.5
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -56,10 +56,10 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 35
+    m_Value: 8
   tint:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 7.2
 --- !u!114 &-2155674975649903439
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -75,7 +75,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1.04
+    m_Value: 1.2
   contrast:
     m_OverrideState: 1
     m_Value: 5

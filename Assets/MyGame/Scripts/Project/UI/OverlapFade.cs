@@ -15,7 +15,6 @@ public class OverlapFade : BaseOverlap
     public override void Init()
     {
         base.Init();
-        Fade(1, OnFinish);
     }
 
     public override void Show(object data)
@@ -35,33 +34,21 @@ public class OverlapFade : BaseOverlap
         this.imgFade.color = cl;
     }
 
-    public void Fade(float fadeTime, Action onFinish)
+    public void Fade(float fadeTime, Action onDuringFade = null, Action onFinish = null)
     {
         imgFade.color = fadeColor;
         SetAlpha(0);
         Sequence seq = DOTween.Sequence();
         seq.Append(this.imgFade.DOFade(1f, fadeTime)); //fade-in
+        seq.AppendCallback(() =>
+        {
+            onDuringFade?.Invoke();
+        });
         seq.Append(this.imgFade.DOFade(0, fadeTime)); //fade-out
         seq.OnComplete(() =>
         {
             onFinish?.Invoke();
-            OnFinish();
+            this.Hide();
         });
     }
-
-    private void OnFinish()
-    {
-        this.Hide();
-
-        if (UIManager.HasInstance)
-        {
-            UIManager.Instance.ShowScreen<ScreenGame>();
-        }
-
-        if (AudioManager.HasInstance)
-        {
-            AudioManager.Instance.PlayBGM(AUDIO.BGM_BMG_4);
-        }
-    }
-
 }
