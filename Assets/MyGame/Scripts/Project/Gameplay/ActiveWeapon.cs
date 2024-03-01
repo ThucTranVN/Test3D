@@ -207,4 +207,17 @@ public class ActiveWeapon : MonoBehaviour
             equippedWeapons[activeWeaponIndex] = null;
         }
     }
+
+    public void RefillMagazine(int size)
+    {
+        var weapon = GetActiveWeapon();
+        if (weapon)
+        {
+            weapon.magazineSize += size;
+            if (ListenerManager.HasInstance)
+            {
+                ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, weapon);
+            }
+        }
+    }
 }

@@ -57,4 +57,13 @@ public class PlayerHealth : Health
             }
         });
     }
+
+    protected override void OnHealth(float amount)
+    {
+        if (postProcessing.TryGet(out Vignette vignette))
+        {
+            float percent = 1.0f - (currentHealth / maxHealth);
+            vignette.intensity.value = percent * 0.4f;
+        }
+    }
 }

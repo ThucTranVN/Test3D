@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670e939746b114ed293c7259138c8a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipWeaponBy: 0
   weaponSlot: 1
   weaponName: pistol
   raycastOrigin: {fileID: 557964058050978588}
@@ -72,6 +73,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2049
+  animator: {fileID: 22100000, guid: df56824fe5acb4a79a1247a18a2bc8b1, type: 2}
 --- !u!114 &-3151356537875705959
 MonoBehaviour:
   m_ObjectHideFlags: 0

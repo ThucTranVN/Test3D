@@ -66,6 +66,7 @@ public class AIWeapons : MonoBehaviour
 
     private IEnumerator EquipWeapon()
     {
+        animator.runtimeAnimatorController = currentWeapon.animator;
         animator.SetBool("Equip", true);
         yield return new WaitForSeconds(0.5f);
         while(animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)

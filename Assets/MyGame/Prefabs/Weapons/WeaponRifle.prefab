@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670e939746b114ed293c7259138c8a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipWeaponBy: 0
   weaponSlot: 0
   weaponName: rifle
   raycastOrigin: {fileID: 557964058050978588}
@@ -323,6 +324,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2049
+  animator: {fileID: 9100000, guid: 10c66018a85504c1597139229f051b04, type: 2}
 --- !u!114 &3436674634518139640
 MonoBehaviour:
   m_ObjectHideFlags: 0
