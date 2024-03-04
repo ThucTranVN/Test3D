@@ -17,6 +17,8 @@ public class ActiveWeapon : MonoBehaviour
     private int activeWeaponIndex;
     private bool isHolsterd = false;
 
+    public RaycastWeapon weaponPrefab;
+
     void Start()
     {
         reloadWeapon = GetComponent<ReloadWeapon>();
@@ -25,6 +27,11 @@ public class ActiveWeapon : MonoBehaviour
         {
             Equip(existingWeapon);
         }
+        //else
+        //{
+        //    RaycastWeapon newWeapon = Instantiate(weaponPrefab);
+        //    Equip(newWeapon);
+        //}
     }
 
     // Update is called once per frame
